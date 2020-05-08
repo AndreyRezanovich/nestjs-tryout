@@ -14,6 +14,7 @@ export class UserService {
     @InjectModel('User') private userModel: Model<UserInterface>,
     private jwtService: JwtService,
   ) {
+
   }
 
   createUser(user) {
@@ -44,15 +45,16 @@ export class UserService {
   }
 
   createMail() {
+    console.log(process.env.MAIL_USER, '<-- MAIL');
     const transporter = nodemailer.createTransport({
-      service: 'Mailgun',
+      service: process.env.MAIL_DRIVER,
       auth: {
-        user: 'postmaster@sandbox8738fa8543b04e5d9a9fc7b5c597b496.mailgun.org',
-        pass: '1fa78984f7aa99d95dedd6be5b6bbe88-65b08458-a1520851',
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASSWORD,
       },
     });
     const mailOptions = {
-      from: 'postmaster@sandbox8738fa8543b04e5d9a9fc7b5c597b496.mailgun.org',
+      from: process.env.MAIL_FROM,
       to: 'anreza@pascalium.com',
       subject: 'Congrats',
       text: `Congratulations you are registered.`,

@@ -45,7 +45,6 @@ export class UserService {
   }
 
   createMail() {
-    console.log(process.env.MAIL_USER, '<-- MAIL');
     const transporter = nodemailer.createTransport({
       service: process.env.MAIL_DRIVER,
       auth: {
@@ -55,7 +54,7 @@ export class UserService {
     });
     const mailOptions = {
       from: process.env.MAIL_FROM,
-      to: 'anreza@pascalium.com',
+      to: 'lastmandak@gmail.com',
       subject: 'Congrats',
       text: `Congratulations you are registered.`,
     };

@@ -39,7 +39,7 @@ export class TodoController {
     return this.todoService.update(id, text.text);
   }
 
-  @Put('check')
+  @Put('check/:id')
   checkTodo(@Param('id') id) {
     return this.todoService.check(id);
   }

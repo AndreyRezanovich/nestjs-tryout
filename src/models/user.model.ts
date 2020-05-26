@@ -2,7 +2,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-export const UserSchema = new Schema({
+export const UserSchema = new Schema(
+  {
     login: {
       type: String,
       required: true,
@@ -16,6 +17,7 @@ export const UserSchema = new Schema({
   },
   {
     versionKey: false,
-  });
+  },
+);
 
 module.exports = mongoose.model('User', UserSchema);

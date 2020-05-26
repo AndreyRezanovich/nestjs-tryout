@@ -6,20 +6,18 @@ import { TodoModule } from './todo/todo.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 
-
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/todosdb', { useFindAndModify: false }),
+    MongooseModule.forRoot('mongodb://fatherfrost:korol32k53@ds117469.mlab.com:17469/users', {
+      useFindAndModify: false,
+    }),
     TodoModule,
     UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
-    })
-,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-}
-
+export class AppModule {}

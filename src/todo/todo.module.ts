@@ -9,6 +9,4 @@ import { TodoSchema } from '../models/todo.model';
   controllers: [TodoController],
   providers: [TodoService],
 })
-
-export class TodoModule {
-}
+export class TodoModule {}

@@ -6,16 +6,12 @@ import { UserDto } from '../dto/user-dto';
 import { JwtService } from '@nestjs/jwt';
 import * as nodemailer from 'nodemailer';
 
-
 @Injectable()
-
 export class UserService {
   constructor(
     @InjectModel('User') private userModel: Model<UserInterface>,
     private jwtService: JwtService,
-  ) {
-
-  }
+  ) {}
 
   createUser(user) {
     const newUser = new this.userModel(user);
@@ -24,6 +20,10 @@ export class UserService {
 
   findUsers() {
     return this.userModel.find();
+  }
+
+  findUser(login) {
+    return this.userModel.findOne({ login: login });
   }
 
   async validateUser(user: UserDto): Promise<string> {

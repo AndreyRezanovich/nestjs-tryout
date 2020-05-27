@@ -11,7 +11,7 @@ import { ValidationPipe } from '../pipes/validation.pipe';
 import { UserDto } from '../dto/user-dto';
 import { JwtService } from '@nestjs/jwt';
 
-@Controller('/auth/')
+@Controller('/auth')
 export class UserController {
   constructor(
     private readonly userService: UserService,
@@ -50,7 +50,7 @@ export class UserController {
   }
 
   @Post('login')
-  async login(@Body(/*ValidationPipe*/) user: UserDto): Promise<string> {
+  async login(@Body(ValidationPipe) user: UserDto): Promise<string> {
     return await this.userService.validateUser(user);
   }
 }

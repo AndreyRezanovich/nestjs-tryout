@@ -63,6 +63,8 @@ export class UserService {
         return console.log(`error: ${error}`);
       }
       console.log('Message Sent', info);
+      return 'You are registered';
     });
+
   }
 }

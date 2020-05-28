@@ -15,7 +15,7 @@ export class TodoService {
     return this.todoModel.find();
   }
 
-  findTodo(id: string): any {
+  findTodoById(id: string): any {
     return this.todoModel.findById(id);
   }
 
@@ -26,6 +26,10 @@ export class TodoService {
 
   update(id, text: string): any {
     return this.todoModel.findByIdAndUpdate({ _id: id }, { text: text });
+  }
+
+  searchTodo(text) {
+    return this.todoModel.find(text);
   }
 
   async remove(id: string) {

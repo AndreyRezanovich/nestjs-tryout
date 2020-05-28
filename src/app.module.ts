@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TodoModule } from './todo/todo.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { ConnectionModule } from './sse/connection.module';
 
 
 @Module({
@@ -14,12 +15,13 @@ import { ConfigModule } from '@nestjs/config';
     UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
-    })
-,
+    }),
+    ConnectionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
+
 }
 

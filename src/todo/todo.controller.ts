@@ -49,7 +49,7 @@ export class TodoController {
   @Get('/todos')
   connect(@Res() res: Response) {
     res.sse(`data: ${JSON.stringify({ text: 'init todo' })}\n\n`);
-    console.log('Connecting');
+    console.log('Connecting!!!');
     this.emitter.on('test', (data) => {
       res.sse(`data: ${JSON.stringify(data)}\n\n`);
     });

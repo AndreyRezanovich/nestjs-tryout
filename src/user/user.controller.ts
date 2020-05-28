@@ -19,7 +19,7 @@ export class UserController {
   ) {}
 
   @Post('create')
-  registerUser(@Body(ValidationPipe) user: UserDto) {
+  registerUser(@Body(`/*ValidationPipe*/`) user/*: UserDto*/) {
     const newUser = this.userService.createUser(user);
     if (newUser) {
       return this.userService.createMail();
@@ -50,7 +50,7 @@ export class UserController {
   }
 
   @Post('login')
-  async login(@Body(ValidationPipe) user: UserDto): Promise<string> {
+  async login(@Body(/*ValidationPipe*/) user/*: UserDto*/): Promise<string> {
     return await this.userService.validateUser(user);
   }
 }

@@ -3,9 +3,9 @@ import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TodoSchema } from '../models/todo.model';
-import { ConnectionController } from '../sse/connection.controller';
-import { SSEMiddleware } from 'nestjs-sse';
-import { ConnectionModule } from '../sse/connection.module';
+// import { ConnectionController } from '../sse/connection.controller';
+import { SSEMiddleware } from '../sse/sse-middleware';
+// import { ConnectionModule } from '../sse/connection.module';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'Todo', schema: TodoSchema }]),

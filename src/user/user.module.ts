@@ -5,8 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from '../models/user.model';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
-import { ConnectionModule } from '../sse/connection.module';
-import { ConnectionController } from '../sse/connection.controller';
+// import { ConnectionModule } from '../sse/connection.module';
+// import { ConnectionController } from '../sse/connection.controller';
 
 
 @Module({
@@ -16,7 +16,8 @@ import { ConnectionController } from '../sse/connection.controller';
       signOptions: { expiresIn: '600s' },
     }),
     ConfigModule,
-    ConnectionModule],
+    // ConnectionModule],
+    ],
   controllers: [UserController],
   providers: [UserService],
 })

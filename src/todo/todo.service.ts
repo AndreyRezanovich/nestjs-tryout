@@ -12,11 +12,7 @@ export class TodoService {
 
 
   getTodos() {
-    try {
       return this.todoModel.find();
-    } catch (err) {
-      console.log('getTodos failed', err);
-    }
   }
 
   findTodoById(id: string): any {
@@ -24,24 +20,19 @@ export class TodoService {
   }
 
   create(todo) {
-    try {
-      const newTodo = new this.todoModel(todo);
-      return newTodo.save();
-    } catch (err) {
-      console.log('create failed', err);
-    }
+    const newTodo = new this.todoModel(todo);
+    return newTodo.save();
   }
 
   update(id, text: string): any {
     return this.todoModel.findByIdAndUpdate({ _id: id }, { text: text });
   }
 
-  searchTodo() {
-    return this.todoModel.find();
+  async searchTodo(text) {
+    return this.todoModel.find({ text });
   }
 
   remove(id: string) {
     return this.todoModel.findByIdAndDelete(id);
   }
-
 }

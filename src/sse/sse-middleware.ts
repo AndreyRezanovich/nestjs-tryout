@@ -8,7 +8,7 @@ export class SSEMiddleware implements NestMiddleware {
     req.socket.setKeepAlive(true);
     req.socket.setTimeout(0);
     const gotHeaders = Object.keys(res.getHeaders());
-    console.log(gotHeaders);
+    // console.log(gotHeaders);
     if (!gotHeaders.includes('Connection')) {
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');

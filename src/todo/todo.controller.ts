@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, Res } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { TodoDto } from '../dto/create-dto';
 import { TodoInterface } from '../models/todo.interface';
@@ -9,7 +9,7 @@ import { Response } from 'express';
 
 export enum Events {
   update = 'UPDATE',
-  create = 'CREATE'
+  find = 'FIND'
 }
 
 const stringify = (json) => {
@@ -54,8 +54,11 @@ export class TodoController {
   }
 
   @Get('/find')
-  findTodo() {
-    return this.todoService.searchTodo();
+  async findTodo(@Query('text') text) {
+    // console.log(text);
+    return this.todoService.searchTodo(text);
+    // const foundTodos = await this.todoService.searchTodo(text);
+    // this.emitter.emit(Events.update, {action: 'find', data: foundTodos});
   }
 
   @Post('/create')
@@ -68,14 +71,14 @@ export class TodoController {
   }
 
   @Put(':id/update')
-  async updateTodo(@Param('id') id, @Body() text) {
-    console.log(text);
-    const editedTodo = await this.todoService.update(id, text.text);
+  async updateTodo(@Param('id') id, @Body() todo) {
+    console.log(todo);
+    const editedTodo = await this.todoService.update(id, todo);
     if (editedTodo) {
-      this.updateTodos()
+      this.updateTodos();
     }
     return editedTodo;
-    // return this.todoService.update(id, text.text);
+    // return this.todoService.update(id, todo);
   }
 
   @Delete(':id/delete')
@@ -87,5 +90,3 @@ export class TodoController {
     return deleteTodo;
   }
 }
-
-

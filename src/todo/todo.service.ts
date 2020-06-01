@@ -32,12 +32,14 @@ export class TodoService {
     }
   }
 
-  update(id, text: string): any {
-    return this.todoModel.findByIdAndUpdate({ _id: id }, { text: text });
+  update(id, todo): any {
+    return this.todoModel.findByIdAndUpdate({ _id: id }, todo);
   }
 
-  searchTodo() {
-    return this.todoModel.find();
+  async searchTodo(text) {
+    const foundTodos = await this.todoModel.find({ text });
+    console.log(foundTodos);
+    return foundTodos;
   }
 
   remove(id: string) {

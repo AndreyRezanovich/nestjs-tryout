@@ -7,19 +7,22 @@ import { TodoInterface } from '../models/todo.interface';
 @Injectable()
 
 export class TodoService {
+
   constructor(@InjectModel('Todo') private todoModel: Model<TodoInterface>) {
   }
 
 
-  getTodos() {
-      return this.todoModel.find();
+  getTodos(user) {
+    return this.todoModel.find({author: user.login});
   }
 
   findTodoById(id: string): any {
     return this.todoModel.findById(id);
   }
 
-  create(todo) {
+  create(todo, user) {
+    // console.log(user);
+    todo.author = user.login;
     const newTodo = new this.todoModel(todo);
     return newTodo.save();
   }

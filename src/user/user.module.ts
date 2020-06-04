@@ -5,19 +5,25 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from '../models/user.model';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
+import { JwtUtilities } from '../utilities/jwt-util';
 
 
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-    JwtModule.register({
-      secret: 'secret',
-      signOptions: { expiresIn: '600s' },
-    }),
     ConfigModule,
+    PassportModule,
+    JwtModule.registerAsync({
+      useFactory: async () => ({
+        secret: 'secret',
+        signOptions: { expiresIn: '600s' },
+      }),
+    }),
     ],
+
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, JwtUtilities],
 })
 
 export class UserModule {

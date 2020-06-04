@@ -1,14 +1,16 @@
-import { Body, Controller, Get, Headers, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ValidationPipe } from '../pipes/validation.pipe';
 import { UserDto } from '../dto/user-dto';
 import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @Controller('/auth/')
 export class UserController {
-  constructor(private readonly userService: UserService,
-              private jwtService: JwtService,
+  constructor(
+    private readonly userService: UserService,
+    private jwtService: JwtService,
   ) {
   }
 
@@ -17,18 +19,13 @@ export class UserController {
     const newUser = this.userService.createUser(user);
     if (newUser) {
       return this.userService.createMail();
-    } else {
-      return 'Failed to register';
     }
+    return 'Failed to register';
   }
 
-  @Get()
-  getUsers(@Headers('token') token) {
-    try {
-      this.jwtService.verify(token);
-    } catch (err) {
-      throw new UnauthorizedException();
-    }
+  @Get('users')
+  @UseGuards(AuthGuard('jwt'))
+  getUsers() {
     return this.userService.findUsers();
   }
 

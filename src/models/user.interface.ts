@@ -1,6 +1,7 @@
-import {Document} from 'mongoose';
+import { Document } from 'mongoose';
 
-export interface UserInterface extends Document{
-    login: string,
-    password: string,
+export interface UserInterface extends Document {
+  login: string;
+  password: string;
+  _id: string;
 }

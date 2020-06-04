@@ -26,11 +26,11 @@ export class UserService {
     return this.userModel.find();
   }
 
-  async validateUser(user: UserDto): Promise<string> {
+  async validateUser(user: any): Promise<string> {
     const foundUser = await this.userModel.findOne({ login: user.login });
     if (foundUser) {
       if (user.password === foundUser.password) {
-        return JSON.stringify(this.createToken(foundUser.login));
+        return JSON.stringify(this.createToken(foundUser._id));
       } else {
         throw new HttpException('Wrong password please try again', 401);
       }
@@ -39,9 +39,13 @@ export class UserService {
     }
   }
 
-  createToken(login) {
-    const payload = { login };
+  createToken(id) {
+    const payload = { id };
     return this.jwtService.sign(payload);
+  }
+
+  refresh(user) {
+    return this.createToken(user.id)
   }
 
   createMail() {

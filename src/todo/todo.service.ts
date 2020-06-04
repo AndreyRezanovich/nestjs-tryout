@@ -13,7 +13,7 @@ export class TodoService {
 
 
   getTodos(user) {
-    return this.todoModel.find({author: user.login});
+    return this.todoModel.find({ author: user.id });
   }
 
   findTodoById(id: string): any {
@@ -21,8 +21,7 @@ export class TodoService {
   }
 
   create(todo, user) {
-    // console.log(user);
-    todo.author = user.login;
+    todo.author = user.id;
     const newTodo = new this.todoModel(todo);
     return newTodo.save();
   }
@@ -31,8 +30,9 @@ export class TodoService {
     return this.todoModel.findByIdAndUpdate({ _id: id }, { text: text });
   }
 
-  async searchTodo(text) {
-    return this.todoModel.find({ text });
+  async searchTodo(text, author) {
+    // console.log();
+    return this.todoModel.find({ text, author });
   }
 
   remove(id: string) {

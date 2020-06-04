@@ -1,5 +1,5 @@
-import {Document, mongoose} from "mongoose";
+import { Document } from 'mongoose';
 
 export interface TodoInterface extends Document {
-    text: string,
+  text: string,
 }

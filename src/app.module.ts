@@ -5,7 +5,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TodoModule } from './todo/todo.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { ConnectionModule } from './sse/connection.module';
 
 
 @Module({
@@ -16,7 +15,6 @@ import { ConnectionModule } from './sse/connection.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    ConnectionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -24,4 +22,3 @@ import { ConnectionModule } from './sse/connection.module';
 export class AppModule {
 
 }
-

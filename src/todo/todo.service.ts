@@ -7,19 +7,21 @@ import { TodoInterface } from '../models/todo.interface';
 @Injectable()
 
 export class TodoService {
+
   constructor(@InjectModel('Todo') private todoModel: Model<TodoInterface>) {
   }
 
 
-  getTodos() {
-    return this.todoModel.find();
+  getTodos(user) {
+    return this.todoModel.find({ author: user.id });
   }
 
   findTodoById(id: string): any {
     return this.todoModel.findById(id);
   }
 
-  create(todo) {
+  create(todo, user) {
+    todo.author = user.id;
     const newTodo = new this.todoModel(todo);
     return newTodo.save();
   }
@@ -28,12 +30,12 @@ export class TodoService {
     return this.todoModel.findByIdAndUpdate({ _id: id }, { text: text });
   }
 
-  searchTodo(text) {
-    return this.todoModel.find(text);
+  async searchTodo(text, author) {
+    // console.log();
+    return this.todoModel.find({ text, author });
   }
 
-  async remove(id: string) {
+  remove(id: string) {
     return this.todoModel.findByIdAndDelete(id);
   }
-
 }

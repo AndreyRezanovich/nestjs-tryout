@@ -16,20 +16,21 @@ export class TodoController {
   @Get()
   @UseGuards(AuthGuard('jwt'))
   getTodos(@CurrentUser() user) {
+    // console.log(user);
     return this.todoService.getTodos(user);
   }
 
   @Get(':id/find')
   @UseGuards(AuthGuard('jwt'))
   getTodo(@Param('id') id) {
+    // console.log(id);
     return this.todoService.findTodoById(id);
   }
 
   @Get('/search')
   @UseGuards(AuthGuard('jwt'))
-  findTodo(@Query('text') text: string, author ) {
-    console.log();
-    return this.todoService.searchTodo(text, author );
+  findTodo(@Query('text') text: string) {
+    return this.todoService.searchTodo(text);
   }
 
   @Post()
@@ -41,7 +42,7 @@ export class TodoController {
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   async updateTodo(@Param('id') id, @Body() text) {
-    return await this.todoService.update(id, text.text);
+    return this.todoService.update(id, text.text);
   }
 
   @Delete(':id')
@@ -49,6 +50,4 @@ export class TodoController {
   async remove(@Param('id') id) {
     return this.todoService.remove(id);
   }
-
-
 }

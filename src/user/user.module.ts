@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from '../models/user.model';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtUtilities } from '../utilities/jwt-util';
-
 
 
 @Module({
@@ -20,10 +19,13 @@ import { JwtUtilities } from '../utilities/jwt-util';
         signOptions: { expiresIn: '600s' },
       }),
     }),
-    ],
-
+  ],
   controllers: [UserController],
-  providers: [UserService, JwtUtilities],
+  providers: [
+    UserService,
+    JwtUtilities,
+  ],
+  exports: [UserService],
 })
 
 export class UserModule {

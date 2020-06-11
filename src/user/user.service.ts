@@ -2,7 +2,6 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserInterface } from '../models/user.interface';
-import { UserDto } from '../dto/user-dto';
 import { JwtService } from '@nestjs/jwt';
 import * as nodemailer from 'nodemailer';
 

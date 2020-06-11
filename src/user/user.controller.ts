@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Post, UnauthorizedException, UseGuards, Headers } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ValidationPipe } from '../pipes/validation.pipe';
 import { UserDto } from '../dto/user-dto';
-import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from './user.decorator';
 
@@ -11,7 +10,6 @@ import { CurrentUser } from './user.decorator';
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private jwtService: JwtService,
   ) {
   }
 
@@ -26,6 +24,7 @@ export class UserController {
 
   @Post('login')
   async login(@Body(ValidationPipe) user: any): Promise<string> {
+    console.log(user);
     return await this.userService.validateUser(user);
   }
 

@@ -14,5 +14,4 @@ import { TodoSchema } from '../models/todo.model';
 })
 
 export class TodoModule {
-
 }

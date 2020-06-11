@@ -8,7 +8,8 @@ import { TodoInterface } from '../models/todo.interface';
 
 export class TodoService {
 
-  constructor(@InjectModel('Todo') private todoModel: Model<TodoInterface>) {
+  constructor(
+    @InjectModel('Todo') private todoModel: Model<TodoInterface>) {
   }
 
 
@@ -16,7 +17,8 @@ export class TodoService {
     return this.todoModel.find({ author: user.id });
   }
 
-  findTodoById(id: string): any {
+  findTodoById(id: string) {
+    console.log(id);
     return this.todoModel.findById(id);
   }
 
@@ -26,13 +28,12 @@ export class TodoService {
     return newTodo.save();
   }
 
-  update(id, text: string): any {
+  update(id, text: string): object {
     return this.todoModel.findByIdAndUpdate({ _id: id }, { text: text });
   }
 
-  async searchTodo(text, author) {
-    // console.log();
-    return this.todoModel.find({ text, author });
+  async searchTodo(text): Promise<object> {
+    return this.todoModel.find({ text });
   }
 
   remove(id: string) {

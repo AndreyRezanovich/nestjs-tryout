@@ -15,16 +15,14 @@ export class TodoController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  getTodos(@CurrentUser() user) {
-    // console.log(user);
+  getTodos(@CurrentUser()user) {
     return this.todoService.getTodos(user);
   }
 
   @Get(':id/find')
   @UseGuards(AuthGuard('jwt'))
   getTodo(@Param('id') id) {
-    // console.log(id);
-    return this.todoService.findTodoById(id);
+    return this.todoService.findTodoById(id)
   }
 
   @Get('/search')

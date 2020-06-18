@@ -8,7 +8,3 @@ async function bootstrap() {
 }
 
 bootstrap().then(() => console.log('Start'));
-
-
-
-

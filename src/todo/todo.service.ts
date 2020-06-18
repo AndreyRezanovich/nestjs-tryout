@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { TodoInterface } from '../models/todo.interface';
 
 
+
 @Injectable()
 
 export class TodoService {
@@ -14,18 +15,17 @@ export class TodoService {
 
 
   getTodos(user) {
-    return this.todoModel.find({ author: user.id });
+    return this.todoModel.find({ author: user.id }).populate('author');
   }
 
   findTodoById(id: string) {
-    console.log(id);
-    return this.todoModel.findById(id);
+    const findTodo = this.todoModel.findById(id);
+    return findTodo.populate('author');
   }
 
   create(todo, user) {
     todo.author = user.id;
-    const newTodo = new this.todoModel(todo);
-    return newTodo.save();
+    return new this.todoModel(todo).save();
   }
 
   update(id, text: string): object {
@@ -37,6 +37,6 @@ export class TodoService {
   }
 
   remove(id: string) {
-    return this.todoModel.findByIdAndDelete(id);
+    return this.todoModel.findByIdAndDelete(id).populate('author');
   }
 }

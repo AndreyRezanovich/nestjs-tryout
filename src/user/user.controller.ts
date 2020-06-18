@@ -24,7 +24,6 @@ export class UserController {
 
   @Post('login')
   async login(@Body(ValidationPipe) user: any): Promise<string> {
-    console.log(user);
     return await this.userService.validateUser(user);
   }
 
@@ -36,7 +35,7 @@ export class UserController {
 
   @Get('refresh')
   @UseGuards(AuthGuard('jwt'))
-  refreshToken(@CurrentUser() user) {
+  refreshToken(@CurrentUser()user) {
     return this.userService.refresh(user);
   }
 }

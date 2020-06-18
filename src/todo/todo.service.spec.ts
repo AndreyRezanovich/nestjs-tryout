@@ -4,7 +4,7 @@ import { TodoModule } from './todo.module';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
 
-// import * as TodoModule from './todo.module';
+jest.mock('./todo.service');
 
 
 describe('TodoService', () => {
@@ -12,17 +12,10 @@ describe('TodoService', () => {
   let todoController: TodoController;
 
 
-  // const mockTodoModel = jest.fn();
-  // jest.mock('TodoModule', () => {
-  //   return jest.fn().mockImplementation(() => {
-  //     return {todoModel: mockTodoModel}
-  //   })
-  // });
-
   const mockRepo = {
     find() {
-      return {}
-    }
+      return {};
+    },
   };
 
   beforeAll(async () => {
@@ -38,25 +31,17 @@ describe('TodoService', () => {
 
   describe('Todo Service', () => {
     it('Search Todo', () => {
-      const result = {};
+      const result = '';
       const mock = jest.fn().mockImplementation(() => result);
-      expect(mock(todoService.searchTodo({}))).toBe(result);
-
-      // jest.spyOn(todoController, 'findTodo').mockImplementation(() => result);
-      // expect(todoService.searchTodo({})).toBe(result);
+      expect(mock(todoService.searchTodo(''))).toBe(result);
     });
 
     it('Remove Todo', () => {
-      jest.mock('TodoModule');
       const result = {};
       const mock = jest.fn().mockImplementation(() => result);
 
       expect(mock(todoService.create({}, {}))).toBe(result);
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      // jest.spyOn(todoController, 'createTodo').mockImplementation();
-      // expect(todoService.create({}, {})).toBe(result);
-    })
-  })
+    });
+  });
 });

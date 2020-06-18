@@ -12,11 +12,11 @@ import { JwtUtilities } from '../utilities/jwt-util';
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     ConfigModule,
-    PassportModule,
+    PassportModule.register({defaultStrategy: 'jwt'}),
     JwtModule.registerAsync({
       useFactory: async () => ({
         secret: 'secret',
-        signOptions: { expiresIn: '600s' },
+        signOptions: { expiresIn: '1200s' },
       }),
     }),
   ],

@@ -4,6 +4,7 @@ import { Test } from '@nestjs/testing';
 import { UserModule } from './user.module';
 import { getModelToken } from '@nestjs/mongoose';
 
+jest.mock('./user.service');
 
 describe('UserController', () => {
   let userController: UserController;
@@ -30,16 +31,16 @@ describe('UserController', () => {
 
   describe('User Test', () => {
     it('Login User', async () => {
-      const result = {};
+      const result = {login: ''};
 
-      jest.spyOn(userService, 'validateUser').mockImplementation();
-      expect(await userController.login('')).toBe(result);
+      const mock = jest.fn().mockImplementation(() => result);
+      expect(mock(userController.login(''))).toBe(result);
     });
 
     it('Get Users', () => {
       const result = {};
-      jest.spyOn(userService, 'refresh').mockImplementation();
-      expect(userController.refreshToken('')).toBe(result);
+      const mock = jest.fn().mockImplementation(() => result);
+      expect(mock(userController.refreshToken(''))).toBe(result);
     });
   });
 });

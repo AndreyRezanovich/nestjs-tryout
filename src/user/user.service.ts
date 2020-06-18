@@ -12,9 +12,7 @@ export class UserService {
   constructor(
     @InjectModel('User') private userModel: Model<UserInterface>,
     private jwtService: JwtService,
-  ) {
-
-  }
+  ) {}
 
   createUser(user) {
     const newUser = new this.userModel(user);
@@ -22,7 +20,9 @@ export class UserService {
   }
 
   findUsers() {
-    return this.userModel.find();
+    const users = this.userModel.find();
+    // console.log(users);
+    return users;
   }
 
   async validateUser(user: any): Promise<string> {

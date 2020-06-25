@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TodoModule } from './todo/todo.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { MulterModule } from '@nestjs/platform-express';
 
 
 @Module({
@@ -14,6 +15,9 @@ import { ConfigModule } from '@nestjs/config';
     UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    MulterModule.register({
+      dest: './uploads',
     }),
   ],
   controllers: [AppController],

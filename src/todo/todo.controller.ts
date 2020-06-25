@@ -1,16 +1,32 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { TodoDto } from '../dto/create-dto';
 import { TodoInterface } from '../models/todo.interface';
 import { ValidationPipe } from '../pipes/validation.pipe';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from '../user/user.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ParserService } from '../utilities/parser';
 
 
 @Controller('/todos')
 export class TodoController {
 
-  constructor(private readonly todoService: TodoService) {
+  constructor(private readonly todoService: TodoService,
+              private readonly parserService: ParserService
+  ) {
   }
 
   @Get()
@@ -22,7 +38,7 @@ export class TodoController {
   @Get(':id/find')
   @UseGuards(AuthGuard('jwt'))
   getTodo(@Param('id') id) {
-    return this.todoService.findTodoById(id)
+    return this.todoService.findTodoById(id);
   }
 
   @Get('/search')
@@ -45,7 +61,13 @@ export class TodoController {
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  async remove(@Param('id') id) {
+  remove(@Param('id') id) {
     return this.todoService.remove(id);
+  }
+
+  @Post('/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(@UploadedFile() file) {
+    return await this.parserService.parse(file);
   }
 }

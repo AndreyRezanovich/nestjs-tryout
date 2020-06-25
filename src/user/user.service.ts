@@ -20,9 +20,7 @@ export class UserService {
   }
 
   findUsers() {
-    const users = this.userModel.find();
-    // console.log(users);
-    return users;
+    return this.userModel.find();
   }
 
   async validateUser(user: any): Promise<string> {

@@ -6,7 +6,7 @@ import {
   Param,
   Post,
   Put,
-  Query,
+  Query, Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -25,7 +25,7 @@ import { ParserService } from '../utilities/parser';
 export class TodoController {
 
   constructor(private readonly todoService: TodoService,
-              private readonly parserService: ParserService
+              private readonly parserService: ParserService,
   ) {
   }
 
@@ -68,6 +68,15 @@ export class TodoController {
   @Post('/upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
-    return await this.parserService.parse(file);
+    return await this.parserService.parseCsv(file);
+  }
+
+  @Post('/download')
+  convert(@Body() json) {
+    return new Promise((resolve) => {
+      return this.parserService.parseJson(json, (file) => {
+        resolve(file);
+      });
+    });
   }
 }

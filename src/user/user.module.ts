@@ -16,7 +16,7 @@ import { JwtUtilities } from '../utilities/jwt-util';
     JwtModule.registerAsync({
       useFactory: async () => ({
         secret: 'secret',
-        signOptions: { expiresIn: '1200s' },
+        signOptions: { expiresIn: '2400s' },
       }),
     }),
   ],
